@@ -83,12 +83,22 @@
 	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"CEST"]];
 	[str appendString:[dateFormatter stringFromDate: datePicker.date]];
 	
-	[str appendString: @"\r\San Francisco Time: "];
-	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"PST"]];
+	[str appendString: @"\r\nHong Kong Time: "];
+	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"HKT"]];
 	[str appendString:[dateFormatter stringFromDate: datePicker.date]];
 	
+	[str appendString: @"\r\nLondon Time: "];
+	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"BST"]];
+	[str appendString:[dateFormatter stringFromDate: datePicker.date]];
 	
-									
+	[str appendString: @"\r\nHonolulu: "];
+	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"HST"]];
+	[str appendString:[dateFormatter stringFromDate: datePicker.date]];
+	
+	[str appendString: @"\r\nMoscow: "];
+	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"MSD"]];
+	[str appendString:[dateFormatter stringFromDate: datePicker.date]];
+										
 	textView.text = str;
 }
 
