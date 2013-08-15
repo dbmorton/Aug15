@@ -29,12 +29,11 @@
 		// Initialization code
 		self.backgroundColor = [UIColor whiteColor];
 			
-		
-		
 		dateFormatter = [[NSDateFormatter alloc] init];
-		[dateFormatter setDateStyle: NSDateFormatterMediumStyle];
+		[dateFormatter setDateStyle: NSDateFormatterShortStyle];
 		[dateFormatter setTimeStyle: NSDateFormatterShortStyle];
-		 
+		[dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+		
 		 //Let the date picker assume its natural size.
 		 datePicker = [[UIDatePicker alloc] initWithFrame: CGRectZero];
 		 datePicker.datePickerMode = UIDatePickerModeDateAndTime; //vs. UIDatePickerModeTime
@@ -77,25 +76,19 @@
 
 - (void) valueChanged
 {	NSMutableString *str=[[NSMutableString alloc] initWithString:@"Local Time: "];
+	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"EST"]];
 	[str appendString:[dateFormatter stringFromDate: datePicker.date]];
 	
-	NSDate *newDate;
-	NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:~ NSTimeZoneCalendarUnit fromDate:datePicker.date];
-	newDate = [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
-	[dateComponents setTimeZone:[NSTimeZone timeZoneWithName:@"Europe/Paris"]];
-	newDate = [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
-	
 	[str appendString: @"\r\nParis Time: "];
-	[str appendString:[dateFormatter stringFromDate: newDate]];
+	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"CEST"]];
+	[str appendString:[dateFormatter stringFromDate: datePicker.date]];
 	
-	dateComponents = [[NSCalendar currentCalendar] components:~ NSTimeZoneCalendarUnit fromDate:datePicker.date];
-	newDate = [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
-	[dateComponents setTimeZone:[NSTimeZone timeZoneWithName:@"Australia/Sydney"]];
-	newDate = [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
-	[str appendString: @"\r\nSydney Time: "];
-	[str appendString:[dateFormatter stringFromDate: newDate]];
-
+	[str appendString: @"\r\San Francisco Time: "];
+	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"PST"]];
+	[str appendString:[dateFormatter stringFromDate: datePicker.date]];
 	
+	
+									
 	textView.text = str;
 }
 
